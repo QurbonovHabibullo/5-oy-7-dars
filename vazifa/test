@@ -1,0 +1,103 @@
+drop table if exists books;
+drop table if exists authors;
+drop table if exists publishers;
+drop table if exists book_reviews ;
+
+create table if not exists books(
+	id serial primary key,
+	kitob_nomi varchar(50) not null,
+	muallif_id integer,
+	nashriyot_id integer,
+	janri text,
+	nashr_sanasi date,
+	narxi numeric(7,2) not null
+);
+
+insert into books(kitob_nomi,muallif_id,nashriyot_id,janri,nashr_sanasi,narxi) values
+('xcvb',1,1,'jhgfddfghj','2010-12-19',12000),
+('rtyhgbv',2,2,'kjhgh','2010-02-08',43600),
+('hgre',3,3,'kjhfvb','2020-10-12',10000),
+('yrther',4,4,'sghbddfghj','1990-12-30',5000),
+('ryerf',5,5,'hgfdsdfghj','2005-10-09',10000),
+('yrhert',6,6,'weergbddfghj','2010-12-21',12000),
+('tretr',7,7,'fghrghj','2003-12-28',45000),
+('jfdvyet',8,8,'hjghgfddfghj','2023-03-28',50000),
+('jthreg',9,9,'adsffghj','2010-03-30',68900),
+('jyrt',10,10,'jasdsdfghj','2001-12-21',2000);
+
+
+create table if not exists authors(
+	authors_id serial primary key,
+	ismi varchar(50) not null,
+	tugilgan_sana integer,
+	mamlakat varchar(50) not null
+);
+
+insert into authors(ismi,tugilgan_sana,mamlakat) values
+('toxir',2000,'Uzbekistan'),
+('bakir',2000,'Qazagiston'),
+('sobir',1999,'Uzbekistan'),
+('zokir',1990,'Tojikiston'),
+('halil',1995,'Qazagiston');
+
+create table if not exists publishers(
+	nomi varchar(50) not null,
+	shahar varchar(50) not null,
+	asos_yil integer
+);
+
+insert into publishers(nomi,shahar,asos_yil) values
+('kjhgf','qoqon',1990),
+('jhg','oltiariq',1800),
+('dfghjk','fargana',2000),
+('kjhgfg','quva',1995),
+('wergbk','bogdot',1980);
+
+create table if not exists book_reviews(
+	kitob_id serial primary key,
+	sharh_matni text,
+	baho integer,
+	sharh_sanasi  date default current_date
+);
+
+insert into book_reviews(sharh_matni,baho) values
+('ajoyib',5),
+('yaxshi',4),
+('yaxshi',4),
+('zor',5),
+('ajoyib',3);
+-- ========================================
+update books set janri='kjhgg' where janri='kjhgh';
+
+select * from books order by narxi;
+
+select * from authors where mamlakat = 'Uzbekistan';
+
+select * from books order by muallif_id limit 5;
+
+select * from books order by nashriyot_id fetch first 3 row only;
+
+select * from books where muallif_id in(3,5,7,8);
+
+select * from books where narxi between 5000 and 45000;
+
+select * from authors where ismi like 'toxir';
+
+select * from book_reviews where sharh_matni is null;
+
+select janri,count(*) as "book count" from books group by janri;
+
+
+select count(*) kitob_nomi from books;
+select sum(narxi) as "umumiy summa" from books;
+select avg(narxi) as "o'rtacha narx" from books;
+
+select * from books;
+select * from authors;
+select * from publishers;
+select * from book_reviews;
+
+
+
+
+
